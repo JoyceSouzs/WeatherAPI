@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">DevAppsProvaNetWorkPersistencia</string>
+    <string name="txt_unid_temp">Unidade de Temperatura</string>
+    <string name="rb_temp_c">°C</string>
+    <string name="rb_temp_f">°F</string>
+
+    <string name="txt_desc_ling">Linguagem</string>
+    <string name="rb_desc_en">EN</string>
+    <string name="rb_desc_pt">PT</string>
+
+    <string name="bt_salvar">Salvar</string>
+
+</resources>
