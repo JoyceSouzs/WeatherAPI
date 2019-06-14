@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.util.Log
@@ -41,15 +42,38 @@ class MainActivity : AppCompatActivity() {
         linguagem = pegarLing()
         txt.text = recuperar().toString()
 
+
     }
 
     /**
-     *  Salva as cidades no banco
+     *  Método salvar as cidades no banco
      */
     private fun saveFavorite(city: City) {
-        RoomManager.instance(this).favoritosDao().apply {
+        //Caixa de mensagem
+        val alertDialog = AlertDialog.Builder(this)
+        alertDialog.setTitle("Alerta") // O Titulo da notificação
+        alertDialog.setMessage("Deseja remover?")
+
+
+         RoomManager.instance(this).favoritosDao().apply {
             val (id, name) = city
-            insert(FavoritosCidade(id, name))
+           // insert(FavoritosCidade(id, name))
+
+            if (selectById(city.id) == null) {
+                insert(FavoritosCidade(id, name))
+            }else{
+
+                alertDialog.setPositiveButton("Sim",{dialog,_which ->
+                    Toast.makeText(applicationContext,android.R.string.yes, Toast.LENGTH_SHORT).show()})
+                delete(FavoritosCidade(id, name))
+
+
+                alertDialog.setNegativeButton("Não",{dialog, which->
+                    Toast.makeText(applicationContext,android.R.string.no, Toast.LENGTH_SHORT).show()})
+
+                alertDialog.show()
+
+            }
 
             selectAll().forEach {
                 Log.d("saveFavorite", it.id.toString() + " Cidade: " + it.name)
@@ -58,24 +82,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     *  Remove as cidades no banco
-     */
-    private fun removeFavorito(city: City) {
-        RoomManager.instance(this).favoritosDao().apply {
-            val (id, name) = city
-            delete(FavoritosCidade(id, name))
-
-            selectAll().forEach {
-                Log.d("saveFavorite", it.id.toString() + " Cidade: " + it.name)
-            }
-
-        }
-    }
-
 
     /**
-     *  Recupera as cidades salvas no banco
+     *  Método para recuperar as cidades salvas no banco
      */
     fun recuperar(): List<Int>? {
 
@@ -127,6 +136,9 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     *  Método para chamar as cidades salvas no banco atraves do ID
+     */
     private fun favoritos() {
         val codigos = recuperar()
 
@@ -166,7 +178,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Inicializa os componentes da UI
+     * Método para inicializa os componentes da UI
      */
     private fun initUI() {
         btPesquisar.setOnClickListener {

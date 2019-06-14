@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DevAppsProvaNetWorkPersistencia</string>
+    <string name="app_name">Tempo</string>
     <string name="txt_unid_temp">Unidade de Temperatura</string>
     <string name="rb_temp_c">°C</string>
     <string name="rb_temp_f">°F</string>

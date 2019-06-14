@@ -1,5 +1,6 @@
 package com.example.devappsprovanetworkpersistencia.features.list
 
+import android.graphics.BitmapFactory
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -70,6 +71,25 @@ class WeatherAdapter(private val callback: (City) -> Unit) : RecyclerView.Adapte
 
             itemView.imgFav.setImageResource(R.drawable.ic_action_name)
 
+        }
+
+
+        private fun AlterandoImagem(favorite: Boolean) {
+            if (favorite) {
+                itemView.imgFav.setImageBitmap(
+                    BitmapFactory.decodeResource(
+                        itemView.context.resources,
+                        R.drawable.ic_action_name_amarelo
+                    )
+                )
+            } else {
+                itemView.imgFav.setImageBitmap(
+                    BitmapFactory.decodeResource(
+                        itemView.context.resources,
+                        R.drawable.ic_action_name
+                    )
+                )
+            }
         }
     }
 

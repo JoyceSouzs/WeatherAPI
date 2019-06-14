@@ -21,6 +21,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+            android:theme="@android:style/Theme.Holo.Light.Dialog"
         </activity>
     </application>
 
